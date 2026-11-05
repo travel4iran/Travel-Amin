@@ -12,7 +12,15 @@
   var burger=$("#burger"), menu=$("#menu");
   burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
   $$("#menu a").forEach(function(a){a.addEventListener("click",function(){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")})});
-
+// کد جدید: بستن منو با کلیک بیرون از آن
+document.addEventListener("click", function(event) {
+  if (menu && menu.classList.contains("open")) {
+    if (!menu.contains(event.target) && !burger.contains(event.target)) {
+      menu.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+    }
+  }
+});
   // UTM (FR-28)
   (function(){
     try{
