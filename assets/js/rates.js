@@ -19,7 +19,7 @@
   function toman(s){var n=num(s); if(isNaN(n)) return null; var v=n/(cfg.divisor||10); return v<1000?Math.round(v*10)/10:Math.round(v)}
   function fmt(n){return n.toLocaleString("en-US",{maximumFractionDigits:1})}
   function timeout(ms){var c=new AbortController(); setTimeout(function(){c.abort()},ms); return c.signal}
-  function getJSON(u){return fetch(u,{signal:timeout(7000),headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok) throw new Error("http "+r.status); return r.json()})}
+  function getJSON(u){return fetch(u,{signal:timeout(10000),headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok) throw new Error("http "+r.status); return r.json()})}
   function load(src){
     var urls=[cfg.proxy||src];
     var first=null, p=Promise.reject(new Error("start"));
