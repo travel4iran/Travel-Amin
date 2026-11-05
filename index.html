@@ -23,7 +23,39 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TravelAgency","name":"Travel Amin","alternateName":"Travel.Amin","description":"خدمات السياحة والسفر العلاجي في إيران للناطقين بالعربية","areaServed":"IR","address":{"@type":"PostalAddress","addressLocality":"Mashhad","addressCountry":"IR"},"sameAs":["https://instagram.com/travel.amin","https://t.me/travel_amin"]}
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TravelAgency",
+      "@id": "https://travel4iran.github.io/Travel-Amin/#agency",
+      "name": "Travel Amin",
+      "alternateName": "Travel.Amin",
+      "description": "خدمات السياحة والسفر العلاجي في إيران للناطقين بالعربية",
+      "url": "https://travel4iran.github.io/Travel-Amin/",
+      "logo": "https://travel4iran.github.io/Travel-Amin/assets/img/logo.jpg",
+      "areaServed": "IR",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mashhad",
+        "addressCountry": "IR"
+      },
+      "sameAs": [
+        "https://instagram.com/travel.amin",
+        "https://t.me/travel_amin"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://travel4iran.github.io/Travel-Amin/#person",
+      "name": "أمين",
+      "jobTitle": "مرشد سياحي",
+      "worksFor": {
+        "@id": "https://travel4iran.github.io/Travel-Amin/#agency"
+      }
+    }
+  ]
+}
 </script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
