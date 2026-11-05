@@ -51,14 +51,45 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
 .burger span::after{position:absolute;top:8px;inset-inline-start:0}
 @media(max-width:860px){
   .burger{display:block}
-  .menu{position:absolute;inset-inline:0;top:calc(100% + 8px);background:rgba(248,239,221,.93);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid rgba(255,255,255,.7);border-radius:22px;flex-direction:column;align-items:stretch;gap:0;padding:.5rem 1rem 1rem;display:none;box-shadow:0 12px 30px rgba(11,27,69,.2)}
-  .menu.open{
-    display:flex;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
+  
+  .menu{
+    position:absolute;
+    inset-inline:0;
+    top:calc(100% + 8px);
+    background:rgba(248,239,221,.93);
+    -webkit-backdrop-filter:blur(18px) saturate(170%);
+    backdrop-filter:blur(18px) saturate(170%);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:22px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:.5rem 1rem 1rem;
+    box-shadow:0 12px 30px rgba(11,27,69,.2);
+    
+    /* تنظیمات جدید برای انیمیشن */
+    display:flex; 
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(-15px) scale(0.98);
+    transition:opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.3s;
+    transform-origin:top center;
+    
+    max-height:calc(100vh - 120px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
   }
+  
+  .menu.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0) scale(1);
+  }
+  
+  /* استایل‌های داخلی منو (خط‌کشی‌ها و دکمه‌ها) */
   .menu li a{display:block;padding:.85rem .4rem;border-bottom:1px solid rgba(11,27,69,.07)}
   .menu li:last-child a{border:0;margin-top:.6rem}
   .hide-m{display:none}
@@ -352,13 +383,3 @@ html.intro #intro{display:block}
 /* 404 page */
 .e404-logo{display:block;margin:0 auto 1.2rem;border-radius:50%}
 body>main.container{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
-/* انیمیشن منو */
-@media(max-width:860px){
-  .menu.open {
-    animation: slideDownMenu 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  }
-  @keyframes slideDownMenu {
-    from { opacity: 0; transform: translateY(-15px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-}
