@@ -1,0 +1,1 @@
+(function(){var s="light";try{s=localStorage.getItem("ta_theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",s);try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("intro");setTimeout(function(){document.documentElement.classList.remove("intro")},14000)}}catch(e){}})();
