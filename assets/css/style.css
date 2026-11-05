@@ -50,12 +50,14 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
 .burger span::before{position:absolute;top:-8px;inset-inline-start:0}
 .burger span::after{position:absolute;top:8px;inset-inline-start:0}
 @media(max-width:860px){
-  .burger{display:block}
-  .menu{position:absolute;inset-inline:0;top:calc(100% + 8px);background:rgba(248,239,221,.93);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid rgba(255,255,255,.7);border-radius:22px;flex-direction:column;align-items:stretch;gap:0;padding:.5rem 1rem 1rem;display:none;box-shadow:0 12px 30px rgba(11,27,69,.2); max-height:75vh; overflow-y:auto;}
-  .menu.open{display:flex}
-  .menu li a{display:block;padding:.85rem .4rem;border-bottom:1px solid rgba(11,27,69,.07)}
-  .menu li:last-child a{border:0;margin-top:.6rem}
-  .hide-m{display:none}
+  .menu{position:absolute;inset-inline:0;top:calc(100% + 8px);background:rgba(248,239,221,.93);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid rgba(255,255,255,.7);border-radius:22px;flex-direction:column;align-items:stretch;gap:0;padding:.5rem 1rem 1rem;display:none;box-shadow:0 12px 30px rgba(11,27,69,.2)}
+
+.menu.open{
+  display:flex;
+  max-height: calc(100vh - 120px); /* ارتفاع منو رو محدود میکنه که از صفحه بیرون نزنه */
+  overflow-y: auto; /* اجازه اسکرول داخلی میده */
+  overscroll-behavior: contain; /* جلوگیری از اسکرول شدن صفحه پشتی */
+  -webkit-overflow-scrolling: touch; /* اسکرول نرم در آیفون */
 }
 
 /* hero */
