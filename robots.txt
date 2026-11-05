@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 # Add after you know your domain:
-# Sitemap: https://YOUR-DOMAIN/sitemap.xml
+# Sitemap: https://travel4iran.github.io/Travel-Amin/sitemap.xml
