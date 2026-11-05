@@ -38,7 +38,46 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
 .brand img{box-shadow:0 2px 8px rgba(11,27,69,.2)}
 .menu a.btn{box-shadow:0 4px 12px rgba(37,211,102,.35);color:#fff}
 .menu li:last-child a.btn{text-align:center}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:68px}
+.nav{display:flex;align-items:center;justi.menu {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% + 8px);
+  background: rgba(248, 239, 221, .93);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 22px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: .5rem 1rem 1rem;
+  display: none; /* ظاهر قبلی که سالم بود */
+  box-shadow: 0 12px 30px rgba(11, 27, 69, .2);
+}
+
+.menu.open {
+  display: flex;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  
+  /* کدهای انیمیشن */
+  animation: menuSlideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: top center;
+}
+
+@keyframes menuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+     fy-content:space-between;gap:1rem;min-height:68px}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:800;color:var(--navy)}
 .brand img{width:48px;height:48px;border-radius:50%;object-fit:cover}
 .brand span{font-size:1.15rem;letter-spacing:.01em}
@@ -51,35 +90,7 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
 .burger span::after{position:absolute;top:8px;inset-inline-start:0}
 @media(max-width:860px){
   .burger{display:block}
-  .menu{
-  position:absolute;inset-inline:0;top:calc(100% + 8px);
-  background:rgba(248,239,221,.93);
-  -webkit-backdrop-filter:blur(18px) saturate(170%);
-  backdrop-filter:blur(18px) saturate(170%);
-  border:1px solid rgba(255,255,255,.7);
-  border-radius:22px;flex-direction:column;align-items:stretch;gap:0;
-  padding:.5rem 1rem 1rem;box-shadow:0 12px 30px rgba(11,27,69,.2);
   
-  /* --- کدهای جدید برای انیمیشن --- */
-  display:flex; /* به جای none */
-  opacity:0;
-  visibility:hidden;
-  transform: translateY(-15px) scale(0.98);
-  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0.3s;
-  pointer-events:none;
-  
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-.menu.open{
-  opacity:1;
-  visibility:visible;
-  transform: translateY(0) scale(1);
-  pointer-events:auto;
-}
 
 /* hero */
 .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 60%,#1b3577 100%);color:#fff;padding-block:3.5rem 10.6rem;position:relative;overflow:hidden}
