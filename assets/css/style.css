@@ -51,44 +51,51 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
 .burger span::after{position:absolute;top:8px;inset-inline-start:0}
 @media(max-width:860px){
   .burger{display:block}
+  
   .menu{
-  position:absolute;
-  inset-inline:0;
-  top:calc(100% + 8px);
-  background:rgba(248,239,221,.93);
-  -webkit-backdrop-filter:blur(18px) saturate(170%);
-  backdrop-filter:blur(18px) saturate(170%);
-  border:1px solid rgba(255,255,255,.7);
-  border-radius:22px;
-  flex-direction:column;
-  align-items:stretch;
-  gap:0;
-  padding:.5rem 1rem 1rem;
-  display:none; /* حالت بسته کاملاً مخفی است */
-  box-shadow:0 12px 30px rgba(11,27,69,.2);
-  transform-origin: top center; /* نقطه شروع انیمیشن از بالا */
-}
-
-.menu.open{
-  display:flex;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  animation: slideDownMenu 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; /* اجرای انیمیشن */
-}
-
-@keyframes slideDownMenu {
-  from {
-    opacity: 0;
-    transform: translateY(-15px) scale(0.98);
+    position:absolute;
+    inset-inline:0;
+    top:calc(100% + 8px);
+    background:rgba(248,239,221,.93);
+    -webkit-backdrop-filter:blur(18px) saturate(170%);
+    backdrop-filter:blur(18px) saturate(170%);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:22px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:.5rem 1rem 1rem;
+    display:none;
+    box-shadow:0 12px 30px rgba(11,27,69,.2);
+    transform-origin: top center;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  
+  .menu.open{
+    display:flex;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    animation: slideDownMenu 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  /* این همون خط‌کشی‌هاییه که دنبالش بودی */
+  .menu li a{display:block;padding:.85rem .4rem;border-bottom:1px solid rgba(11,27,69,.07)}
+  .menu li:last-child a{border:0;margin-top:.6rem}
+  
+  .hide-m{display:none}
+
+  @keyframes slideDownMenu {
+    from {
+      opacity: 0;
+      transform: translateY(-15px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
-
 /* hero */
 .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 60%,#1b3577 100%);color:#fff;padding-block:3.5rem 10.6rem;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:
