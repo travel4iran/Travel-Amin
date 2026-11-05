@@ -352,3 +352,13 @@ html.intro #intro{display:block}
 /* 404 page */
 .e404-logo{display:block;margin:0 auto 1.2rem;border-radius:50%}
 body>main.container{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+/* انیمیشن منو */
+@media(max-width:860px){
+  .menu.open {
+    animation: slideDownMenu 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes slideDownMenu {
+    from { opacity: 0; transform: translateY(-15px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+}
