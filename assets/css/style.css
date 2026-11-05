@@ -100,18 +100,53 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
  radial-gradient(1.2px 1.2px at 64% 16%,rgba(255,255,255,.6),transparent),
  radial-gradient(1.4px 1.4px at 46% 5%,rgba(255,255,255,.7),transparent),
  radial-gradient(1.2px 1.2px at 94% 52%,rgba(243,210,122,.6),transparent)}
-.skyline{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:none;height:auto;opacity:.6;pointer-events:none;z-index:0;filter:drop-shadow(0 0 18px rgba(227,185,79,.4))}
-@media(min-width:861px){.hero{padding-block:4rem 14rem}.skyline{width:min(780px,70%);opacity:.55}}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:2.5rem;align-items:center;position:relative;z-index:1}
-.hero h1{color:#fff;font-size:clamp(1.9rem,6vw,3.2rem);margin-bottom:1rem}
-.hero h1 em{font-style:normal;color:var(--gold-2)}
-.hero p{color:#dfe5f7;max-width:52ch;margin-bottom:1.6rem;font-size:1.08rem}
-.hero .cta{display:flex;flex-wrap:wrap;gap:.8rem}
-.hero .btn-line{color:#fff;border-color:rgba(255,255,255,.6)}
-.hero .btn-line:hover{background:#fff;color:var(--navy)}
-.hero-logo{justify-self:center;width:min(340px,80%);height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:50%;box-shadow:0 20px 50px rgba(0,0,0,.35);border:5px solid rgba(227,185,79,.7)}
-.badges{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
-.badges span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:.25rem .85rem;border-radius:999px;font-size:.92rem}
+.skyline{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:none;height:auto;opa@media(max-width:860px){
+  .burger{display:block}
+  
+  .menu{
+    position:absolute;
+    inset-inline:0;
+    top:calc(100% + 8px);
+    background:rgba(248,239,221,.93);
+    -webkit-backdrop-filter:blur(18px) saturate(170%);
+    backdrop-filter:blur(18px) saturate(170%);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:22px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:.5rem 1rem 1rem;
+    display:none;
+    box-shadow:0 12px 30px rgba(11,27,69,.2);
+    transform-origin: top center;
+  }
+  
+  .menu.open{
+    display:flex;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    animation: slideDownMenu 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  /* این دو خط همون خط‌کشی‌های بین آیتم‌های منو هست که گم شده بود */
+  .menu li a{display:block;padding:.85rem .4rem;border-bottom:1px solid rgba(11,27,69,.07)}
+  .menu li:last-child a{border:0;margin-top:.6rem}
+  
+  .hide-m{display:none}
+  
+  @keyframes slideDownMenu {
+    from {
+      opacity: 0;
+      transform: translateY(-15px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}ges span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:.25rem .85rem;border-radius:999px;font-size:.92rem}
 @media(max-width:860px){.hero-grid{grid-template-columns:1fr;text-align:center}.hero p{margin-inline:auto}.hero .cta,.badges{justify-content:center}.hero-logo{order:-1;width:200px}}
 
 /* paths */
