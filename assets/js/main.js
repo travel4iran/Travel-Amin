@@ -12,15 +12,16 @@
   var burger=$("#burger"), menu=$("#menu");
   burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
   $$("#menu a").forEach(function(a){a.addEventListener("click",function(){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")})});
-// کد جدید: بستن منو با کلیک بیرون از آن
-document.addEventListener("click", function(event) {
-  if (menu && menu.classList.contains("open")) {
-    if (!menu.contains(event.target) && !burger.contains(event.target)) {
-      menu.classList.remove("open");
-      burger.setAttribute("aria-expanded", "false");
+  
+  document.addEventListener("click", function(event) {
+    if (menu && menu.classList.contains("open")) {
+      if (!menu.contains(event.target) && !burger.contains(event.target)) {
+        menu.classList.remove("open");
+        burger.setAttribute("aria-expanded", "false");
+      }
     }
-  }
-});
+  });
+
   // UTM (FR-28)
   (function(){
     try{
@@ -172,6 +173,7 @@ document.addEventListener("click", function(event) {
     }
     bNext.addEventListener("click",function(){goNext(-1)});
     bPrev.addEventListener("click",goPrev);
+    
     // drag
     var sx=0,dx=0,cur=null,id=null;
     row.addEventListener("pointerdown",function(e){
@@ -180,12 +182,15 @@ document.addEventListener("click", function(event) {
       cur=c; id=e.pointerId; sx=e.clientX; dx=0; lastDir=0; c.classList.add("drag");
       try{c.setPointerCapture(id)}catch(_){}
     });
+    
     row.addEventListener("pointermove",function(e){
       if(!cur||e.pointerId!==id) return;
+      e.preventDefault(); // 👈 این همون خط جادوییه که مشکل اینستاگرام رو حل می‌کنه
       dx=e.clientX-sx;
       cur.style.transform="translateX("+dx+"px) rotate("+(dx/22)+"deg)";
       var dir=dx>8?1:0; if(dir!==lastDir){lastDir=dir; beneath(dir)}
     });
+    
     function end(e){
       if(!cur||(e&&e.pointerId!==id)) return;
       var c=cur, d=dx; dx=0;
@@ -196,8 +201,10 @@ document.addEventListener("click", function(event) {
       else { cur=null; layout() }
     }
     row.addEventListener("pointerup",end); row.addEventListener("pointercancel",end);
+    
     return {enable:enable,disable:disable,size:size,always:row.classList.contains("pstack"),destroy:function(){disable(); if(nav.parentNode) nav.parentNode.removeChild(nav); if(hint.parentNode) hint.parentNode.removeChild(hint)}};
   }
+  
   $$(".g4,.g3,.pstack").forEach(function(r){var s=makeStack(r); if(s) stacks.push(s)});
   function applyStacks(){stacks.forEach(function(s){(mq.matches||s.always)?(s.enable(),s.size()):s.disable()})}
   applyStacks();

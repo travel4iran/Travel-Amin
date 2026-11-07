@@ -18,8 +18,11 @@
   function num(s){var n=parseFloat(latin(s).replace(/[^\d.]/g,"")); return isFinite(n)?n:NaN}
   function toman(s){var n=num(s); if(isNaN(n)) return null; var v=n/(cfg.divisor||10); return v<1000?Math.round(v*10)/10:Math.round(v)}
   function fmt(n){return n.toLocaleString("en-US",{maximumFractionDigits:1})}
+  
+  // افزایش زمان صبر به 15 ثانیه
   function timeout(ms){var c=new AbortController(); setTimeout(function(){c.abort()},ms); return c.signal}
-  function getJSON(u){return fetch(u,{signal:timeout(10000),headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok) throw new Error("http "+r.status); return r.json()})}
+  function getJSON(u){return fetch(u,{signal:timeout(15000),headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok) throw new Error("http "+r.status); return r.json()})}
+  
   function load(src){
     var urls=[cfg.proxy||src];
     var first=null, p=Promise.reject(new Error("start"));
@@ -64,36 +67,39 @@
   }
   function skeleton(){unstack(); grid.innerHTML='<div class="rate card sk"></div><div class="rate card sk"></div><div class="rate card sk"></div><div class="rate card sk"></div>'}
   function hhmm(){var d=new Date();return ("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)}
-  var last=0, busy=false;
-function refresh(first){
-  if(busy) return; busy=true; retry.classList.add("hidden");
-  if(first) skeleton();
   
-  var attempt = 0;
-  var maxAttempts = 3;
+  var last=0, busy=false;
+  function refresh(first){
+    if(busy) return; busy=true; retry.classList.add("hidden");
+    if(first) skeleton();
+    
+    var attempt = 0;
+    var maxAttempts = 3; // تلاش ۳ باره در صورت خطا
 
-  function doFetch() {
-    attempt++;
-    fetchList(cfg.url).then(function(tg){
-      var by={}; pick(tg).forEach(function(r){by[r.d.code]=r});
-      var items=[]; (cfg.show||["USD"]).forEach(function(c){ if(by[c]) items.push(by[c]) });
-      if(!items.length) throw new Error("empty");
-      render(items); last=Date.now();
-      meta.textContent="آخر تحديث: "+hhmm()+" · المصدر: TGJU";
-      busy=false;
-    }).catch(function(e){
-      if (attempt < maxAttempts) {
-        setTimeout(doFetch, 2000);
-      } else {
-        var code="NET"; try{ if(e&&e.name==="AbortError") code="TIMEOUT"; else if(e&&/^http/.test(e.message)) code=e.message.toUpperCase().replace(" ",""); else if(e&&e.message==="empty") code="EMPTY"; }catch(_){}
-        if(!last){ unstack(); grid.innerHTML=""; meta.innerHTML=""; meta.appendChild(document.createTextNode("تعذّر تحميل الأسعار الآن. ")); var cd=document.createElement("small"); cd.dir="ltr"; cd.style.opacity=".6"; cd.textContent="["+code+"]"; meta.appendChild(cd); retry.classList.remove("hidden"); }
-        else { meta.textContent="تعذّر التحديث، آخر أسعار محمّلة عند "+hhmm()+"."; }
+    function doFetch() {
+      attempt++;
+      fetchList(cfg.url).then(function(tg){
+        var by={}; pick(tg).forEach(function(r){by[r.d.code]=r});
+        var items=[]; (cfg.show||["USD"]).forEach(function(c){ if(by[c]) items.push(by[c]) });
+        if(!items.length) throw new Error("empty");
+        render(items); last=Date.now();
+        meta.textContent="آخر تحديث: "+hhmm()+" · المصدر: TGJU";
         busy=false;
-      }
-    });
+      }).catch(function(e){
+        if (attempt < maxAttempts) {
+          setTimeout(doFetch, 2000); // اگر خطا داد، ۲ ثانیه صبر میکنه و دوباره تلاش میکنه
+        } else {
+          var code="NET"; try{ if(e&&e.name==="AbortError") code="TIMEOUT"; else if(e&&/^http/.test(e.message)) code=e.message.toUpperCase().replace(" ",""); else if(e&&e.message==="empty") code="EMPTY"; }catch(_){}
+          if(!last){ unstack(); grid.innerHTML=""; meta.innerHTML=""; meta.appendChild(document.createTextNode("تعذّر تحميل الأسعار الآن. ")); var cd=document.createElement("small"); cd.dir="ltr"; cd.style.opacity=".6"; cd.textContent="["+code+"]"; meta.appendChild(cd); retry.classList.remove("hidden"); }
+          else { meta.textContent="تعذّر التحديث، آخر أسعار محمّلة عند "+hhmm()+"."; }
+          busy=false;
+        }
+      });
+    }
+    
+    doFetch();
   }
-  doFetch();
-}
+  
   retry.addEventListener("click",function(){refresh(true)});
   refresh(true);
   var every=Math.max(1,cfg.refreshMinutes||5)*60000;
