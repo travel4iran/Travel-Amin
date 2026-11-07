@@ -164,10 +164,10 @@ header.site .nav{width:100%;padding-inline:.9rem;min-height:64px}
 
 /* about */
 .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:2.5rem;align-items:center}
-.pwrap{width:100%;max-width:340px;margin-inline:auto; overflow: hidden;}
+.pwrap{width:100%;max-width:340px;margin-inline:auto; overflow: hidden; position: relative; transform: translateZ(0);}
 .pcard{padding:0;margin:0 0 .8rem;overflow:hidden;border-radius:var(--radius);background:#000}
 .pcard img{display:block;width:100%;max-width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:0;box-shadow:none;margin:0;-webkit-user-drag:none;pointer-events:none}
-.pstack.stack{margin-top:0}
+.pstack.stack{margin-top:0; overflow: hidden; border-radius: var(--radius);}
 .pstack.stack>.pcard{margin:0}
 @media(min-width:701px){.pstack~.snav{display:flex}.pstack~.snav .dots{display:flex}.pstack~.swipe-hint{display:block}}
 .about>img{border-radius:var(--radius);box-shadow:var(--shadow);aspect-ratio:2/3;object-fit:cover;width:100%;max-width:340px;margin-inline:auto}
