@@ -16,4 +16,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
+# When a custom domain is connected, change the URL below to the new domain
 Sitemap: https://travel4iran.github.io/Travel-Amin/sitemap.xml

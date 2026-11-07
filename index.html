@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="google-site-verification" content="cm3eL5Jy6Xv6FcwjnSOEqMSKHyD1TACXFL0OjEvYumI" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://travelamin.mafia099x.workers.dev; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://travelamin-rate.mafia099x.workers.dev; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>مرشد سياحي في مشهد | السياحة العلاجية في إيران - Travel Amin</title>
@@ -12,11 +12,19 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Travel Amin | السياحة والعلاج في إيران">
 <meta property="og:description" content="خطّط رحلتك السياحية أو العلاجية إلى إيران مع مرشد من مشهد، وتواصل مباشرة عبر واتساب.">
-<meta property="og:image" content="assets/img/og.jpg">
+<meta property="og:url" content="https://travel4iran.github.io/Travel-Amin/">
+<meta property="og:site_name" content="Travel Amin">
+<meta property="og:image" content="https://travel4iran.github.io/Travel-Amin/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Travel Amin – مرشد سياحي في مشهد">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Travel Amin | السياحة والعلاج في إيران">
+<meta name="twitter:description" content="خطّط رحلتك السياحية أو العلاجية إلى إيران مع مرشد من مشهد، وتواصل مباشرة عبر واتساب.">
+<meta name="twitter:image" content="https://travel4iran.github.io/Travel-Amin/assets/img/og.jpg">
 <meta property="og:locale" content="ar_AR">
 <meta name="theme-color" content="#0B1B45" id="metaTheme">
-<script src="assets/js/theme-init.js"></script>
+<script src="assets/js/theme-init.js?v=20261107"></script>
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +42,15 @@
       "description": "خدمات السياحة والسفر العلاجي في إيران للناطقين بالعربية",
       "url": "https://travel4iran.github.io/Travel-Amin/",
       "logo": "https://travel4iran.github.io/Travel-Amin/assets/img/logo.jpg",
+      "image": "https://travel4iran.github.io/Travel-Amin/assets/img/og.jpg",
+      "knowsLanguage": "ar",
+      "telephone": "+989395464608",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+989395464608",
+        "availableLanguage": "Arabic"
+      },
       "areaServed": "IR",
       "address": {
         "@type": "PostalAddress",
@@ -80,19 +97,44 @@
     },
     {
       "@type": "Question",
+      "name": "كيف يتم الدفع وما العملة؟",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "نحدد طريقة الدفع والعملة معك بوضوح بعد الاتفاق على البرنامج، وقبل أي التزام."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "متى تكون أفضل مواعيد السفر؟",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "يعتمد ذلك على الوجهة ونوع الرحلة؛ أخبرنا بما تفضّله وسنقترح عليك الوقت الأنسب."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "هل المعلومات الطبية سرّية؟",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "نحترم خصوصيتك. لا يحفظ الموقع أي معلومات طبية، ونرجو عدم إرسال تقارير أو صور قبل التواصل مع المستشار عبر واتساب."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "هل تضمنون نتائج العلاج؟",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "لا. نحن نقدّم الاستشارة والتنسيق فقط، والقرار الطبي والنتائج من مسؤولية الطبيب والمركز المعالج."
+      }
     }
   ]
 }
-  </script>
-<link rel="stylesheet" href="assets/css/style.css">
+</script>
+<link rel="stylesheet" href="assets/css/style.css?v=20261107">
 </head>
 <body>
 <div id="intro" role="status" aria-live="polite" aria-label="جارٍ تجهيز رحلتك" dir="ltr">
+  <button class="in-skip" id="inSkip" type="button" dir="rtl">تخطي</button>
   <div class="in-stars"></div>
   <div class="in-stage in-route" id="inRoute">
     <div class="in-logo" id="inLogoWrap">
@@ -225,7 +267,7 @@
       </div>
       <div class="badges"><span>✔ خبرة 5 سنوات</span><span>✔ دعم باللغة العربية</span><span>✔ استشارة مباشرة</span></div>
     </div>
-    <img class="hero-logo" src="assets/img/logo.jpg" alt="شعار Travel Amin: طائرة وخط عربي" width="340" height="340">
+    <img class="hero-logo" fetchpriority="high" src="assets/img/logo.jpg" alt="شعار Travel Amin: طائرة وخط عربي" width="340" height="340">
   </div>
 </section>
 
@@ -330,10 +372,10 @@
     <h2>العلاج في إيران… برحلة منظّمة وسرية</h2>
     <p class="lead">نقدّم خدمة استشارة وتنسيق لمساعدتك على تنظيم الرحلة العلاجية للمريض والمرافق.</p>
     <div class="grid g4">
-      <div class="card" data-spec="تجميل"><span class="ico" aria-hidden="true">✨</span><h3>الجراحة التجميلية</h3><p>نرشّح لك جرّاحًا متخصصًا في العملية التي تحتاجها بعد الاطلاع على حالتك وصورك عبر المستشار.</p></div>
-      <div class="card" data-spec="أسنان"><span class="ico" aria-hidden="true">🦷</span><h3>طب الأسنان</h3><p>أطباء أسنان بحسب الحاجة: زراعة، تجميل الأسنان، تقويم أو علاج جذور.</p></div>
-      <div class="card" data-spec="عقم"><span class="ico" aria-hidden="true">👶</span><h3>علاج العقم</h3><p>استشاريون في مراكز متخصصة، مع احترام كامل للخصوصية وتنسيق مواعيد المتابعة.</p></div>
-      <div class="card" data-spec="فحص"><span class="ico" aria-hidden="true">📋</span><h3>الفحص الشامل</h3><p>برنامج فحوصات منظّم في مركز طبي مجهّز يُنجز في وقت قصير.</p></div>
+      <div class="card"><span class="ico" aria-hidden="true">✨</span><h3>الجراحة التجميلية</h3><p>نرشّح لك جرّاحًا متخصصًا في العملية التي تحتاجها بعد الاطلاع على حالتك وصورك عبر المستشار.</p></div>
+      <div class="card"><span class="ico" aria-hidden="true">🦷</span><h3>طب الأسنان</h3><p>أطباء أسنان بحسب الحاجة: زراعة، تجميل الأسنان، تقويم أو علاج جذور.</p></div>
+      <div class="card"><span class="ico" aria-hidden="true">👶</span><h3>علاج العقم</h3><p>استشاريون في مراكز متخصصة، مع احترام كامل للخصوصية وتنسيق مواعيد المتابعة.</p></div>
+      <div class="card"><span class="ico" aria-hidden="true">📋</span><h3>الفحص الشامل</h3><p>برنامج فحوصات منظّم في مركز طبي مجهّز يُنجز في وقت قصير.</p></div>
     </div>
     <p class="center u7">نختار الطبيب أو المركز المناسب لكل حالة بعد الاستشارة، ونعرّفك بخبرته قبل تحديد أي موعد.</p>
     <h3 class="u8">كيف تتم الخطوات؟</h3>
@@ -353,7 +395,7 @@
   <div class="container center">
     <span class="eyebrow">حجز استشارة</span>
     <h2>ابدأ محادثتك على واتساب</h2>
-    <p class="lead">املأ البيانات الأساسية وسنفتح لك رسالة جاهزة على واتساب. لا يتم إرسال أي بيانات إلى خادم.</p>
+    <p class="lead">املأ البيانات الأساسية وسنفتح لك رسالة جاهزة على واتساب. لا يرسل الموقع بياناتك إلى أي خادم.</p>
     <form class="form-wrap u2" id="bookForm" novalidate aria-label="نموذج حجز استشارة">
       <div class="field">
         <label for="name">الاسم <span class="req">*</span></label>
@@ -413,7 +455,7 @@
           <button type="button" class="btn btn-line" id="fb-copy">نسخ الرقم</button>
         </div>
       </div>
-      <p class="privacy-note">بياناتك تبقى في متصفحك فقط حتى تضغط الزر، ولا يتم حفظ أي معلومات طبية.</p>
+      <p class="privacy-note">بياناتك تبقى في متصفحك فقط حتى تضغط الزر، ثم تنتقل الرسالة إلى واتساب مباشرة. لا يحفظ الموقع أي معلومات طبية، ولا تكتب تفاصيل صحية في خانة التوضيح.</p>
     </form>
   </div>
 </section>
@@ -467,9 +509,9 @@
 
 
 
-<script src="assets/js/config.js" defer></script>
-<script src="assets/js/intro.js" defer></script>
-<script src="assets/js/main.js" defer></script>
-<script src="assets/js/rates.js" defer></script>
+<script src="assets/js/config.js?v=20261107" defer></script>
+<script src="assets/js/intro.js?v=20261107" defer></script>
+<script src="assets/js/main.js?v=20261107" defer></script>
+<script src="assets/js/rates.js?v=20261107" defer></script>
 </body>
 </html>

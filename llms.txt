@@ -1,7 +1,17 @@
 # Travel Amin
-> A professional travel portfolio website for an Iran tour guide, featuring cultural itineraries, local experiences, and medical tourism services for international travelers.
+> Arabic-language website of Amin, a tour guide based in Mashhad, Iran. It offers tourism and medical-travel coordination in Iran for Arabic-speaking travelers. Contact and booking happen directly on WhatsApp; the site has no backend and shows no fixed prices.
 
-Amin is an Arabic-speaking tour guide based in Mashhad, Iran.
-Website: https://travel4iran.github.io/Travel-Amin/
-Instagram: https://instagram.com/travel.amin
-Telegram: https://t.me/travel_amin
+## Services
+- Tourism: guide, airport transfer, accommodation suggestions and a daily itinerary in Mashhad, Tehran, northern Iran and nature destinations.
+- Medical travel (consultation and coordination only, no medical advice and no guarantee of results): cosmetic surgery, dentistry, fertility treatment and general check-ups.
+
+## Facts
+- Based in: Mashhad, Iran
+- Experience: 5 years with Arabic-speaking guests
+- Language of the site: Arabic (right-to-left)
+
+## Links
+- Website: https://travel4iran.github.io/Travel-Amin/
+- Instagram: https://instagram.com/travel.amin
+- Telegram: https://t.me/travel_amin
+- WhatsApp: +98 939 546 4608

@@ -1,6 +1,6 @@
 # Security headers for Cloudflare Pages / Netlify (GitHub Pages ignores this file; the CSP <meta> in index.html still applies)
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://travelamin.mafia099x.workers.dev; base-uri 'self'; form-action 'none'; object-src 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://travelamin-rate.mafia099x.workers.dev; base-uri 'self'; form-action 'none'; object-src 'none'; frame-ancestors 'none'
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -8,5 +8,11 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
   Cross-Origin-Opener-Policy: same-origin
 
-/assets/*
+# JS/CSS: short cache (files are not hash-named; also bump ?v=... in index.html on every release)
+/assets/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/assets/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+# Images rarely change
+/assets/img/*
   Cache-Control: public, max-age=604800
