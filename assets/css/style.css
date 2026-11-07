@@ -6,7 +6,7 @@
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:100px}
-body{font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.8;font-size:17px;-webkit-text-size-adjust:100%}
+body{font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.8;font-size:17px;-webkit-text-size-adjust:100% overflow-x: hidden;}
 img{max-width:100%;display:block}
 a{color:inherit}
 .container{width:min(1120px,100% - 2rem);margin-inline:auto}
