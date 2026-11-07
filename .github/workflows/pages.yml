@@ -22,7 +22,9 @@ jobs:
       - name: Prepare site files (only public files are published)
         run: |
           mkdir _site
-          cp -r index.html 404.html robots.txt sitemap.xml assets _site/
+          cp -r index.html 404.html robots.txt sitemap.xml llms.txt assets _site/
+          find _site -name '.gitkeep' -delete
+          find _site -name '.get' -delete
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
