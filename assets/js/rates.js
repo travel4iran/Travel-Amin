@@ -1,7 +1,7 @@
 (function(){
   var cfg=(window.SITE_CONFIG&&SITE_CONFIG.rates)||null;
   var grid=document.getElementById("ratesGrid"), meta=document.getElementById("ratesMeta"), retry=document.getElementById("ratesRetry");
-  if(!cfg||!grid) return;
+  if(!cfg||!grid||!meta||!retry) return;
   var DEFS=[
     {code:"USD",ar:"الدولار الأمريكي",fl:"🇺🇸",keys:["price_dollar_rl","price_dollar"],titles:["دلار","دلار آمریکا"]},
     {code:"AED",ar:"الدرهم الإماراتي",fl:"🇦🇪",keys:["price_aed"],titles:["درهم امارات","درهم"]},
@@ -19,16 +19,15 @@
   function toman(s){var n=num(s); if(isNaN(n)) return null; var v=n/(cfg.divisor||10); return v<1000?Math.round(v*10)/10:Math.round(v)}
   function fmt(n){return n.toLocaleString("en-US",{maximumFractionDigits:1})}
   
-  // افزایش زمان صبر به 15 ثانیه
-  function timeout(ms){var c=new AbortController(); setTimeout(function(){c.abort()},ms); return c.signal}
-  function getJSON(u){return fetch(u,{signal:timeout(15000),headers:{"Accept":"application/json"}}).then(function(r){if(!r.ok) throw new Error("http "+r.status); return r.json()})}
-  
-  function load(src){
-    var urls=[cfg.proxy||src];
-    var first=null, p=Promise.reject(new Error("start"));
-    urls.forEach(function(u){p=p.catch(function(e){ if(e&&e.message!=="start"&&!first) first=e; return getJSON(u)})});
-    return p.catch(function(e){ throw first||e });
+  // مهلة 15 ثانية؛ المؤقّت يُلغى عند اكتمال الطلب
+  function getJSON(u){
+    var c=new AbortController(), t=setTimeout(function(){c.abort()},15000);
+    return fetch(u,{signal:c.signal,headers:{"Accept":"application/json"}}).then(function(r){
+      if(!r.ok) throw new Error("http "+r.status); return r.json();
+    }).then(function(d){clearTimeout(t); return d},function(e){clearTimeout(t); throw e});
   }
+  // الـ Worker هو المصدر الوحيد (CSP لا يسمح بالاتصال المباشر بـ TGJU)
+  function load(src){return getJSON(cfg.proxy||src)}
   function toList(data){
     var list=Array.isArray(data)?data:(data&&(data.data||data.prices||data.items))||[];
     if(!Array.isArray(list)&&list&&typeof list==="object"){ list=list.currencies?Object.keys(list.currencies).map(function(k){var o=list.currencies[k]; o.symbol=o.symbol||k; return o}):Object.keys(list).map(function(k){return list[k]}) }
@@ -58,7 +57,7 @@
       var un=document.createElement("span"); un.className="un"; un.textContent="تومان";
       c.appendChild(fl); c.appendChild(nm); c.appendChild(pr); c.appendChild(un);
       if(r.st==="high"||r.st==="low"){
-        var ch=document.createElement("span"); ch.className="chg "+(r.st==="high"?"up":"down"); ch.dir="ltr"; ch.textContent=(r.st==="high"?"▲":"▼")+(r.pct?" "+Math.abs(r.pct).toFixed(2)+"%":""); c.appendChild(ch);
+        var ch=document.createElement("span"); ch.className="chg "+(r.st==="high"?"up":"down"); ch.dir="ltr"; ch.textContent=(r.st==="high"?"▲":"▼"); c.appendChild(ch);
       }
       if(r.lo&&r.hi){var rg=document.createElement("span"); rg.className="rg"; rg.textContent=fmt(r.lo)+" – "+fmt(r.hi); c.appendChild(rg)}
       grid.appendChild(c);
@@ -90,7 +89,7 @@
           setTimeout(doFetch, 2000); // اگر خطا داد، ۲ ثانیه صبر میکنه و دوباره تلاش میکنه
         } else {
           var code="NET"; try{ if(e&&e.name==="AbortError") code="TIMEOUT"; else if(e&&/^http/.test(e.message)) code=e.message.toUpperCase().replace(" ",""); else if(e&&e.message==="empty") code="EMPTY"; }catch(_){}
-          if(!last){ unstack(); grid.innerHTML=""; meta.innerHTML=""; meta.appendChild(document.createTextNode("تعذّر تحميل الأسعار الآن. ")); var cd=document.createElement("small"); cd.dir="ltr"; cd.style.opacity=".6"; cd.textContent="["+code+"]"; meta.appendChild(cd); retry.classList.remove("hidden"); }
+          if(!last){ unstack(); grid.innerHTML=""; meta.textContent=""; meta.appendChild(document.createTextNode("تعذّر تحميل الأسعار الآن. ")); var cd=document.createElement("small"); cd.dir="ltr"; cd.style.opacity=".6"; cd.textContent="["+code+"]"; meta.appendChild(cd); retry.classList.remove("hidden"); }
           else { meta.textContent="تعذّر التحديث، آخر أسعار محمّلة عند "+hhmm()+"."; }
           busy=false;
         }
@@ -100,7 +99,7 @@
     doFetch();
   }
   
-  retry.addEventListener("click",function(){refresh(true)});
+  if(retry) retry.addEventListener("click",function(){refresh(true)});
   refresh(true);
   var every=Math.max(1,cfg.refreshMinutes||5)*60000;
   setInterval(function(){if(!document.hidden) refresh(false)},every);

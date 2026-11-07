@@ -7,6 +7,7 @@
   function later(fn,ms){timers.push(setTimeout(fn,ms))}
   function finish(){
     if(finished) return; finished=true;
+    try{sessionStorage.setItem("ta_intro","1")}catch(e){}
     timers.forEach(clearTimeout);
     el.classList.add("leave");
     setTimeout(function(){root.classList.remove("intro"); if(el.parentNode) el.parentNode.removeChild(el)},850);
@@ -49,7 +50,7 @@
     num.textContent=Math.round(p*100); bar.style.width=(p*100)+"%"; ring.style.strokeDashoffset=351.86*(1-p);
   }
   setP(0);
-  var T=4300, t0=0;
+  var T=2800, t0=0;
   function ease(x){return -(Math.cos(Math.PI*x)-1)/2}
   function frame(now){
     if(finished) return;
@@ -64,15 +65,18 @@
     $("toCard").classList.add("arrived");
     el.classList.add("arrived-all");
     $("inTitle").textContent="وصلنا! مطار مشهد الدولي";
-    later(function(){el.classList.add("phase-pass")},600);
-    later(function(){el.classList.add("open")},1400);
+    later(function(){el.classList.add("phase-pass")},400);
+    later(function(){el.classList.add("open")},1000);
     later(function(){
       el.classList.add("stamped");
       var pp=$("pp"); pp.classList.add("shake");
       try{navigator.vibrate&&navigator.vibrate(35)}catch(e){}
-    },2200);
-    later(finish,3100);
+    },1500);
+    later(finish,2200);
   }
+  /* زر التخطي + Escape */
+  var sk=$("inSkip"); if(sk) sk.addEventListener("click",finish);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape") finish()});
   /* safety */
-  later(finish,12000);
+  later(finish,8000);
 })();

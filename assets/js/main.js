@@ -1,7 +1,7 @@
 (function(){
   var $ = function(s,r){return (r||document).querySelector(s)};
   var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-  $("#yr").textContent = new Date().getFullYear();
+  var yr=$("#yr"); if(yr) yr.textContent = new Date().getFullYear();
 
   // safe storage
   function sset(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
@@ -13,6 +13,10 @@
   burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
   $$("#menu a").forEach(function(a){a.addEventListener("click",function(){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")})});
   
+  document.addEventListener("keydown", function(e){
+    if(e.key==="Escape" && menu.classList.contains("open")){menu.classList.remove("open");burger.setAttribute("aria-expanded","false");burger.focus()}
+  });
+
   document.addEventListener("click", function(event) {
     if (menu && menu.classList.contains("open")) {
       if (!menu.contains(event.target) && !burger.contains(event.target)) {
@@ -43,8 +47,7 @@
 
   // direct links (FAB + contact)
   $$("[data-wa-direct]").forEach(function(a){
-    a.href = waLink(SITE_CONFIG.defaultMsg);
-    a.addEventListener("click",function(){a.href = waLink(SITE_CONFIG.defaultMsg + (utmLine()?"\n"+utmLine():""))});
+    a.href = waLink(SITE_CONFIG.defaultMsg + (utmLine()?"\n"+utmLine():""));
   });
 
   // chips
@@ -118,6 +121,7 @@
         c.style.opacity=d>2?0:1;
         c.style.pointerEvents=d===0?"auto":"none";
         c.setAttribute("aria-hidden",d===0?"false":"true");
+        try{c.inert = d!==0}catch(_){}
       });
       di.forEach(function(x,i){x.classList.toggle("on",i===order[0])});
     }
@@ -133,7 +137,7 @@
     }
     function disable(){
       if(!on) return; on=false; row.classList.remove("stack"); row.style.height="";
-      cards.forEach(function(c){c.style.cssText="";c.removeAttribute("aria-hidden")});
+      cards.forEach(function(c){c.style.cssText="";c.removeAttribute("aria-hidden");try{c.inert=false}catch(_){}});
     }
     /* next: top card flies away to the back of the pile */
     function goNext(dir){
@@ -185,7 +189,7 @@
     
     row.addEventListener("pointermove",function(e){
       if(!cur||e.pointerId!==id) return;
-      e.preventDefault(); // 👈 این همون خط جادوییه که مشکل اینستاگرام رو حل می‌کنه
+      e.preventDefault(); // سحب أفقي فقط؛ التمرير العمودي يتولاه touch-action:pan-y في CSS
       dx=e.clientX-sx;
       cur.style.transform="translateX("+dx+"px) rotate("+(dx/22)+"deg)";
       var dir=dx>8?1:0; if(dir!==lastDir){lastDir=dir; beneath(dir)}
@@ -214,16 +218,6 @@
     add:function(row){var s=makeStack(row); if(!s) return null; stacks.push(s); if(mq.matches||s.always){s.enable();s.size()}else s.disable(); return s},
     remove:function(s){if(!s) return; s.destroy(); var i=stacks.indexOf(s); if(i>-1) stacks.splice(i,1)}
   };
-
-  // doctor cards from config
-  (SITE_CONFIG.doctors||[]).forEach(function(d){
-    var c=document.querySelector('#medical .card[data-spec="'+d.spec+'"]'); if(!c) return;
-    var b=document.createElement("div"); b.className="doc";
-    var n=document.createElement("b"); n.textContent=d.name||""; b.appendChild(n);
-    var line=[d.title,d.place,d.years?("خبرة "+d.years+" سنة"):""].filter(Boolean).join(" · ");
-    if(line){var s=document.createElement("small"); s.textContent=line; b.appendChild(s)}
-    c.appendChild(b);
-  });
 
   // theme toggle
   (function(){
@@ -277,6 +271,9 @@
     if(!state.type) bad("e-type","الرجاء اختيار نوع الخدمة.",$(".chip",gType));
     else if(!state.topic) bad("e-topic","الرجاء اختيار الموضوع.",$(".chip",gTopic));
     else if(state.topic==="أخرى" && other.value.trim().length<2) bad("e-topic","الرجاء كتابة الموضوع.",other);
+    var dv=F.date.value.trim();
+    if(dv!=="" && !/^\d{4}-(0[1-9]|1[0-2])$/.test(dv)){ F.date.classList.add("invalid"); ok=false; if(!first) first=F.date; }
+    else F.date.classList.remove("invalid");
     var pc=F.people.value.trim();
     if(pc!=="" && (!/^\d+$/.test(pc) || +pc<1 || +pc>50)) bad("e-people","أدخل عددًا صحيحًا بين 1 و 50.",F.people);
     if(first && first.focus) first.focus();
@@ -286,7 +283,7 @@
   function monthAr(v){
     if(!v) return "";
     var m=["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-    var p=v.split("-"); if(p.length<2) return v;
+    var p=v.split("-"); if(p.length<2 || !m[+p[1]-1]) return "";
     return m[+p[1]-1]+" "+p[0];
   }
 
@@ -298,7 +295,7 @@
     L.push("الدولة: "+clean(F.country.value,40));
     L.push("نوع الخدمة: "+(state.type==="علاج"?"علاج":"سياحة"));
     L.push("الموضوع: "+topic);
-    if(F.date.value) L.push("تاريخ السفر التقريبي: "+monthAr(F.date.value));
+    var mo=monthAr(F.date.value); if(mo) L.push("تاريخ السفر التقريبي: "+mo);
     if(F.people.value.trim()) L.push("عدد الأشخاص: "+clean(F.people.value,3));
     var bt=clean($("#besttime").value,50); if(bt) L.push("أفضل وقت للتواصل: "+bt);
     var note=clean($("#note").value,400); if(note) L.push("ملاحظات: "+note);
@@ -310,7 +307,9 @@
     e.preventDefault();
     if(!validate()) return;
     var msg=buildMessage();
-    var win=window.open(waLink(msg),"_blank","noopener");
+    // لا نستخدم "noopener" في window.open لأنه يُرجع null دائمًا فيُفتح واتساب مرتين
+    var win=window.open(waLink(msg),"_blank");
+    if(win){ try{win.opener=null}catch(_){} }
     $("#fb-web").href=waWeb(msg);
     $("#fallback").classList.remove("hidden");
     // clear stored form data after sending (FR-29)
