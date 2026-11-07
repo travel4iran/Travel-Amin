@@ -172,34 +172,37 @@ document.addEventListener("click", function(event) {
     }
     bNext.addEventListener("click",function(){goNext(-1)});
     bPrev.addEventListener("click",goPrev);
-    // drag
-    var sx=0,dx=0,cur=null,id=null;
-    row.addEventListener("pointerdown",function(e){
-      if(!on||busy) return;
-      var c=e.target.closest(".card"); if(!c||c!==cards[order[0]]) return;
-      cur=c; id=e.pointerId; sx=e.clientX; dx=0; lastDir=0; c.classList.add("drag");
-      try{c.setPointerCapture(id)}catch(_){}
-    });
-    row.addEventListener("pointermove",function(e){
-      if(!cur||e.pointerId!==id) return;
-      dx=e.clientX-sx;
-      cur.style.transform="translateX("+dx+"px) rotate("+(dx/22)+"deg)";
-      var dir=dx>8?1:0; if(dir!==lastDir){lastDir=dir; beneath(dir)}
-    });
-    function end(e){
-      if(!cur||(e&&e.pointerId!==id)) return;
-      var c=cur, d=dx; dx=0;
-      c.classList.remove("drag");
-      if(d<=70) lastDir=0;
-      if(d<-70){ cur=null; goNext(-1) }
-      else if(d>70){ goPrev(); cur=null }
-      else { cur=null; layout() }
-    }
-    row.addEventListener("pointerup",end); row.addEventListener("pointercancel",end);
+    
     return {enable:enable,disable:disable,size:size,always:row.classList.contains("pstack"),destroy:function(){disable(); if(nav.parentNode) nav.parentNode.removeChild(nav); if(hint.parentNode) hint.parentNode.removeChild(hint)}};
   }
   $$(".g4,.g3,.pstack").forEach(function(r){var s=makeStack(r); if(s) stacks.push(s)});
-  function applyStacks(){stacks.forEach(function(s){(mq.matches||s.always)?(s.enable(),s.size()):s.disable()})}
+  function applyStacks(){stacks.f// drag
+var sx=0,dx=0,cur=null,id=null;
+row.addEventListener("pointerdown",function(e){
+  if(!on||busy) return;
+  var c=e.target.closest(".card"); if(!c||c!==cards[order[0]]) return;
+  cur=c; id=e.pointerId; sx=e.clientX; dx=0; lastDir=0; c.classList.add("drag");
+  try{c.setPointerCapture(id)}catch(_){}
+});
+
+row.addEventListener("pointermove",function(e){
+  if(!cur||e.pointerId!==id) return;
+  e.preventDefault(); // 👈 این همون خط جادوییه که مشکل اینستاگرام رو حل می‌کنه
+  dx=e.clientX-sx;
+  cur.style.transform="translateX("+dx+"px) rotate("+(dx/22)+"deg)";
+  var dir=dx>8?1:0; if(dir!==lastDir){lastDir=dir; beneath(dir)}
+});
+
+function end(e){
+  if(!cur||(e&&e.pointerId!==id)) return;
+  var c=cur, d=dx; dx=0;
+  c.classList.remove("drag");
+  if(d<=70) lastDir=0;
+  if(d<-70){ cur=null; goNext(-1) }
+  else if(d>70){ goPrev(); cur=null }
+  else { cur=null; layout() }
+}
+row.addEventListener("pointerup",end); row.addEventListener("pointercancel",end);orEach(function(s){(mq.matches||s.always)?(s.enable(),s.size()):s.disable()})}
   applyStacks();
   window.addEventListener("resize",applyStacks);
   window.addEventListener("load",applyStacks);
